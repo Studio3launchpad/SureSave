@@ -29,8 +29,6 @@ export default function CardSlide() {
           />
         ))}
 
-      
-
         {/* Dots */}
         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2">
           {images.map((_, i) => (
@@ -44,8 +42,6 @@ export default function CardSlide() {
           ))}
         </div>
       </div>
-
-      
     </div>
   );
 }
