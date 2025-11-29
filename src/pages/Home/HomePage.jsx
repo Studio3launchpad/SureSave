@@ -1,8 +1,8 @@
 import Navbar from "../../components/Navbar";
 import CardSlide from "../../components/CardSlide";
-import image from "../../assets/images/frame-1.png";
-import image1 from "../../assets/images/frame-2.png";
-import image2 from "../../assets/images/frame-3.png";
+import Image from "../../assets/frame-1.png";
+import Image1 from "../../assets/frame-2.png";
+import Image2 from "../../assets/frame-3.png";
 import { Link } from "react-router-dom";
 import Dropdown from "../../components/Dropdown";
 import Footer from "../../components/footer";
@@ -63,7 +63,7 @@ function HomePage() {
 
         <div className="flex flex-col md:flex-row pt-9 justify-center items-center gap-4">
           <div className="w-full h-80 md:w-110 px-8">
-            <img src={image} alt="" className="w-140 md:w-110 cursor-pointer" />
+            <img src={Image} alt="" className="w-140 md:w-110 cursor-pointer" />
             <h1 className="text-xl font-bold mt-4">Autosave</h1>
             <p className="mt-2 text-gray-600">
               Save fast. Save smart. Auto-Save helps you stay consistent by
@@ -72,7 +72,7 @@ function HomePage() {
           </div>
           <div className="w-full h-80 md:w-110 px-8">
             <img
-              src={image1}
+              src={Image1}
               alt=""
               className="w-140 md:w-110 cursor-pointer "
             />
@@ -84,7 +84,7 @@ function HomePage() {
           </div>
           <div className="w-full h-80 md:w-110 px-8">
             <img
-              src={image2}
+              src={Image2}
               alt=""
               className="w-140 md:w-110 cursor-pointer"
             />
