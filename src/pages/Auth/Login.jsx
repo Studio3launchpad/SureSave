@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import loginImage from "../../assets/images/4.png";
-import logo from "../../assets/images/logo (1).png";
+import logo from "../../assets/images/logo-1.png";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -50,7 +50,7 @@ export default function Login() {
             <input
               type="email"
               placeholder="Email"
-              className="border border-[#AFAFAF] h-11 p-3 rounded-md"
+              className="border border-[#AFAFAF] h-11 p-3 outline-none rounded-md"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -59,7 +59,7 @@ export default function Login() {
             <input
               type="password"
               placeholder="Password"
-              className="border border-[#AFAFAF] h-11 p-3 rounded-md"
+              className="border border-[#AFAFAF] h-11 p-3 outline-none rounded-md"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

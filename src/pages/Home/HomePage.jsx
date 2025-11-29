@@ -1,8 +1,8 @@
 import Navbar from "../../components/Navbar";
-import CardSlide from "../../components/cardslide";
-import image from "../../assets/images/frame 160.png";
-import image1 from "../../assets/images/frame 160 (1).png";
-import image2 from "../../assets/images/frame 160 (2).png";
+import CardSlide from "../../components/CardSlide";
+import image from "../../assets/images/frame-1.png";
+import image1 from "../../assets/images/frame-2.png";
+import image2 from "../../assets/images/frame-3.png";
 import { Link } from "react-router-dom";
 import Dropdown from "../../components/Dropdown";
 import Footer from "../../components/footer";
