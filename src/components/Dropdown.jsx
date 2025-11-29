@@ -1,5 +1,9 @@
 import { useState } from "react";
 import exampleImage from "../assets/images/accordion (1).png";
+import {
+  FaAngleUp,
+  FaAngleDown,
+} from "react-icons/fa"
 
 export default function SubTopicSection() {
   const [openIndex, setOpenIndex] = useState(null);
@@ -32,7 +36,7 @@ export default function SubTopicSection() {
   };
 
   return (
-    <div className="px-6 py-10">
+    <div className="px-20 py-10">
       {/* ROW WITH LEFT + RIGHT */}
       <div className="flex flex-col md:flex-row items-start md:items-center gap-10">
         {/* LEFT COLUMN */}
@@ -44,13 +48,13 @@ export default function SubTopicSection() {
             >
               <button
                 onClick={() => toggleOpen(index)}
-                className="w-full text-left font-semibold hover:text-indigo-600 flex justify-between items-center"
+                className="w-full text-left font-semibold hover:text-[#1842B4] flex justify-between items-center"
               >
                 {topic.title}
 
                 {/* Arrow */}
-                <span className="ml-2 text-indigo-600">
-                  {openIndex === index ? "▲" : "▼"}
+                <span className="ml-2 text-[#1842B4]">
+                  {openIndex === index ? <FaAngleUp size={16} /> : <FaAngleDown size={16} />}
                 </span>
               </button>
 
@@ -78,7 +82,7 @@ export default function SubTopicSection() {
 
       {/* SEE MORE UNDER BOTH COLUMNS */}
       <div className="text-center mt-10">
-        <button className="underline text-indigo-600 cursor-pointer">
+        <button className="underline text-[#1842B4] cursor-pointer">
           See more
         </button>
       </div>

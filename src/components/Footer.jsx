@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import image from "../assets/images/logo.png";
+import image from "../assets/images/logo.svg";
 import {
   FaFacebookF,
   FaInstagram,
@@ -9,9 +9,9 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-blue-50 text-gray-700 py-12 px-7">
+    <footer className="bg-blue-50 text-gray-700 py-12 px-20">
       {/* MAIN FOOTER CONTENT */}
-      <div className="w-full flex flex-col md:flex-row justify-evenly items-start">
+      <div className="w-full flex flex-col md:flex-row justify-between items-start">
         {/* LEFT SIDE — LOGO + TEXT + SOCIAL ICONS */}
         <div className="md:w-55">
           <a href="">
