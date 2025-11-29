@@ -1,5 +1,5 @@
 import Navbar from "../../components/Navbar";
-import CardSlide from "../../components/cardslide";
+import CardSlide from "../../components/CardSlide";
 import image from "../../assets/images/frame 160.png";
 import image1 from "../../assets/images/frame 160 (1).png";
 import image2 from "../../assets/images/frame 160 (2).png";

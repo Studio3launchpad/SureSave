@@ -50,7 +50,7 @@ export default function Login() {
             <input
               type="email"
               placeholder="Email"
-              className="border border-[#AFAFAF] h-11 p-3 rounded-md"
+              className="border border-[#AFAFAF] h-11 p-3 outline-none rounded-md"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -59,7 +59,7 @@ export default function Login() {
             <input
               type="password"
               placeholder="Password"
-              className="border border-[#AFAFAF] h-11 p-3 rounded-md"
+              className="border border-[#AFAFAF] h-11 p-3 outline-none rounded-md"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

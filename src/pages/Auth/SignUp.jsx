@@ -64,7 +64,7 @@ export default function SignUp() {
               <input
                 type="text"
                 placeholder="First Name"
-                className=" border border-[#AFAFAF] h-11 p-3 rounded-md flex-1"
+                className=" border border-[#AFAFAF] h-11 p-3 outline-none rounded-md"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
@@ -72,7 +72,7 @@ export default function SignUp() {
               <input
                 type="text"
                 placeholder="Last Name"
-                className="border border-[#AFAFAF] p-3 h-11 rounded-md flex-1"
+                className="border border-[#AFAFAF] p-3 h-11 outline-none rounded-md"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -82,7 +82,7 @@ export default function SignUp() {
             <input
               type="tel"
               placeholder="Phone Number"
-              className="border border-[#AFAFAF] h-11 p-3 rounded-md"
+              className="border border-[#AFAFAF] h-11 p-3 outline-none rounded-md"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               required
@@ -91,7 +91,7 @@ export default function SignUp() {
             <input
               type="email"
               placeholder="Email Address"
-              className="border border-[#AFAFAF] h-11 p-3 rounded-md"
+              className="border border-[#AFAFAF] h-11 p-3 outline-none rounded-md"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -100,7 +100,7 @@ export default function SignUp() {
             <input
               type="password"
               placeholder="Password"
-              className="border border-[#AFAFAF] h-11 p-3 rounded-md"
+              className="border border-[#AFAFAF] h-11 p-3  outline-nonerounded-md"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
