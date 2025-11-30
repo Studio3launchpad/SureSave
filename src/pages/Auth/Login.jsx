@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import loginImage from "../assets/images/4.png";
-import logo from "../assets/images/logo (1).png";
+import loginImage from "../../assets/images/4.png";
+import logo from "../../assets/images/logo-1.png";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -40,14 +40,17 @@ export default function Login() {
 
       {/* Left side - form */}
       <div className="flex-1 flex flex-col justify-center px-10 md:px-20">
-        <div className="py-20 px-10 md:px-5 bg-white rounded-lg mt-10 shadow-lg">
-          <h1 className="text-4xl font-bold mb-6">Login</h1>
+        <div className="py-10 px-10 md:px-5 bg-white rounded-lg mt-10 shadow-lg">
+          <div className="mt-6 mb-6">
+           <h1 className="text-4xl font-bold mb-2">Login</h1>
+          <p className="text-[1rem]">Enter email and password to login</p>
+          </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input
               type="email"
               placeholder="Email"
-              className="border p-3 rounded-md"
+              className="border border-[#AFAFAF] h-11 p-3 outline-none rounded-md"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -56,31 +59,31 @@ export default function Login() {
             <input
               type="password"
               placeholder="Password"
-              className="border p-3 rounded-md"
+              className="border border-[#AFAFAF] h-11 p-3 outline-none rounded-md"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <p className="mb-4 text-sm">
+            Forgot your password?{" "}
+            <Link to="/reset-password" className="text-[#1842B4]">
+              Reset
+            </Link>
+          </p>
+
 
             <button
               type="submit"
-              className="bg-indigo-800 text-white p-3 rounded-md hover:bg-indigo-700"
+              className="bg-[#1842B4] text-white p-3 rounded-md hover:bg-[#1842B4]"
             >
               Login
             </button>
           </form>
 
-          <p className="mt-4 text-sm">
-            Forgot your password?{" "}
-            <Link to="/reset-password" className="text-indigo-600">
-              Reset
-            </Link>
-          </p>
-
           <p className="mt-2 text-sm">
-            New here?{" "}
-            <Link to="/signup" className="text-indigo-600">
-              Sign Up
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-[#1842B4]">
+              Create Account
             </Link>
           </p>
         </div>
@@ -88,7 +91,7 @@ export default function Login() {
         {/* Back to home button */}
         <button
           onClick={() => navigate("/")}
-          className="text-blue-600 underline mt-4 cursor-pointer"
+          className="text-[#1842B4] underline mt-4 cursor-pointer"
         >
           Back to Home
         </button>
