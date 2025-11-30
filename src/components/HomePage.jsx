@@ -98,9 +98,9 @@ function HomePage() {
         </div>
 
         <div className="text-center text-indigo-600 mt-6">
-          <Link to="/savings">
+          
             <button className="underline mt-6 cursor-pointer">see more</button>
-          </Link>
+         
         </div>
       </div>
 
