@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Img1 from "../assets//1.png";
-import Img2 from "../assets/post-landscape-3.jpg";
-import Img3 from "../assets/post-landscape-5.jpg";
+import Img1 from "../assets/images/1.png";
+import Img2 from "../assets/images/post-landscape-3.jpg";
+import Img3 from "../assets/images/post-landscape-5.jpg";
 
 export default function CardSlide() {
   const images = [Img1, Img2, Img3]; // Add your images here

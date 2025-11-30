@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import SignupImage from "../../assets/4.png";
-import Logo from "../../assets/logo-1.png";
+import SignupImage from "../../assets/images/4.png";
+import Logo from "../../assets/images/logo-1.png";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");

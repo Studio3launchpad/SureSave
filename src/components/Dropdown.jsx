@@ -1,5 +1,5 @@
 import { useState } from "react";
-import exampleImage from "../assets/accordion (1).png";
+import exampleImage from "../assets/images/accordion (1).png";
 import {
   FaAngleUp,
   FaAngleDown,
