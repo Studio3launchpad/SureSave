@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar";
 import CardSlide from "../../components/CardSlide";
-import Image from "../../as";
+import Image from "../../assets/images/frame-1.png";
 import Image1 from "../../assets/images/frame-2.png";
 import Image2 from "../../assets/images/frame-3.png";
 import { Link } from "react-router-dom";
