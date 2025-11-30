@@ -4,14 +4,9 @@ import Image from "../../assets/images/frame-1.png";
 import Image1 from "../../assets/images/frame-2.png";
 import Image2 from "../../assets/images/frame-3.png";
 import { Link } from "react-router-dom";
-import Dropdown from "./Dropdown";
-import Footer from "./footer";
-import TestimonialSlider from "./Testimonial";
-import Savings from "./Savings";
 import Dropdown from "../../components/Dropdown";
 import Footer from "../../components/Footer";
 import TestimonialSlider from "../../components/Testimonial";
-
 
 function HomePage() {
   return (
@@ -101,10 +96,6 @@ function HomePage() {
           </div>
         </div>
 
-        <div className="text-center text-indigo-600 mt-6">
-          
-            <button className="underline mt-6 cursor-pointer">see more</button>
-         
         <div className="text-center text-[#1842B4]">
           <button className="underline mt-6 cursor-pointer">see more</button>
         </div>
@@ -156,4 +147,5 @@ function HomePage() {
     </div>
   );
 }
+
 export default HomePage;
