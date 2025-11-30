@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import signupImage from "../../assets/images/4.png";
-import logo from "../../assets/images/logo-1.png";
+import SignupImage from "../../assets/images/4.png";
+import Logo from "../../assets/images/logo-1.png";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -23,14 +23,14 @@ export default function SignUp() {
       <div className="hidden md:flex flex-1 relative">
         {/* Background Image */}
         <img
-          src={signupImage}
+          src={SignupImage}
           alt="Sign Up"
           className="w-full h-full object-cover"
         />
 
         {/* Logo at the top */}
         <div className="absolute top-15 left-20 ">
-          <img src={logo} alt="Logo" className="w-40 h-auto " />
+          <img src={Logo} alt="Logo" className="w-40 h-auto " />
         </div>
 
         {/* Overlay message */}

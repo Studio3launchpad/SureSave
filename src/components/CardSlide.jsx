@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import img1 from "../assets/images/1.png";
-import img2 from "../assets/images/post-landscape-3.jpg";
-import img3 from "../assets/images/post-landscape-5.jpg";
+import Img1 from "../assets/images/1.png";
+import Img2 from "../assets/images/post-landscape-3.jpg";
+import Img3 from "../assets/images/post-landscape-5.jpg";
 
 export default function CardSlide() {
-  const images = [img1, img2, img3]; // Add your images here
+  const images = [Img1, Img2, Img3]; // Add your images here
   const [index, setIndex] = useState(0);
 
   // Automatic slide every 4 seconds
