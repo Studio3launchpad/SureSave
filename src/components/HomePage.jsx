@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import Footer from "./footer";
 import TestimonialSlider from "./Testimonial";
+import Savings from "./Savings";
 
 function HomePage() {
   return (
@@ -97,7 +98,9 @@ function HomePage() {
         </div>
 
         <div className="text-center text-indigo-600 mt-6">
-          <button className="underline mt-6 cursor-pointer">see more</button>
+          <Link to="/savings">
+            <button className="underline mt-6 cursor-pointer">see more</button>
+          </Link>
         </div>
       </div>
 
