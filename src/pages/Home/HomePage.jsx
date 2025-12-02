@@ -71,11 +71,7 @@ function HomePage() {
             </p>
           </div>
           <div className="w-full h-80 md:w-110 px-8">
-            <img
-              src={Image1}
-              alt=""
-              className="w-140 md:w-110 cursor-pointer "
-            />
+            <img src={Image1} alt="" className="w-140 md:w-110 cursor-pointer" />
             <h1 className="text-xl font-bold mt-4">Target Saving</h1>
             <p className="mt-2 text-gray-600">
               Create a savings target and watch your progress grow. We keep you
@@ -83,11 +79,7 @@ function HomePage() {
             </p>
           </div>
           <div className="w-full h-80 md:w-110 px-8">
-            <img
-              src={Image2}
-              alt=""
-              className="w-140 md:w-110 cursor-pointer"
-            />
+            <img src={Image2} alt="" className="w-140 md:w-110 cursor-pointer" />
             <h1 className="text-xl font-bold mt-4">Group Saving</h1>
             <p className="mt-2 text-gray-600">
               Team up with friends or fellow tailors. Everyone saves at their
@@ -96,7 +88,7 @@ function HomePage() {
           </div>
         </div>
 
-        <div className="text-center text-[#1842B4]">
+        <div className="text-center text-[#1842B4] mt-6">
           <button className="underline mt-6 cursor-pointer">see more</button>
         </div>
       </div>
@@ -111,9 +103,7 @@ function HomePage() {
             Why choose <span className="text-[#1842B4]">Suresave</span>
           </p>
         </div>
-        <div>
-          <Dropdown />
-        </div>
+        <Dropdown />
       </div>
 
       {/* TESTIMONIALS & CTA SECTION */}

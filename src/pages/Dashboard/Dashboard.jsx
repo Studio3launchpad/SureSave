@@ -1,0 +1,167 @@
+import React, { useState, useEffect } from "react";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import { Eye, EyeOff, Bell } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+
+export default function Dashboard() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // Separate toggles for each container
+  const [showTotalSavings, setShowTotalSavings] = useState(false);
+  const [showEarnings, setShowEarnings] = useState(false);
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+  const navigate = useNavigate(); // navigation hook
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const sidebarWidth = isSidebarOpen ? 256 : 64;
+
+  return (
+    <div className="flex h-screen w-screen bg-gray-100">
+      {/* Sidebar */}
+      <div className="shrink-0 transition-all duration-300" style={{ width: sidebarWidth }}>
+        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      </div>
+
+      {/* MAIN CONTENT */}
+      <main className="flex-1 transition-all duration-300 p-10">
+        {/* Top-right notifications and profile */}
+        <div className="flex justify-end items-center gap-4 mb-6">
+          <Bell size={26} className="text-gray-700 cursor-pointer" />
+          <div className="w-10 h-10 rounded-full bg-indigo-700 text-white flex items-center justify-center font-bold cursor-pointer">
+            A
+          </div>
+        </div>
+
+        <h2 className="text-3xl font-bold mb-2">Good evening, Amaka 👋</h2>
+        <p className="text-gray-600 mb-8">Here’s your savings progress today.</p>
+
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+          {/* TOTAL SAVINGS */}
+          <div className="bg-blue-800 text-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+            <div>
+              <h3 className="text-lg">Total Savings</h3>
+              <div className="flex items-center gap-2 mt-2">
+                <p className="text-3xl font-bold">
+                  {showTotalSavings ? "₦208,000" : "******"}
+                </p>
+                <button
+                  onClick={() => setShowTotalSavings(!showTotalSavings)}
+                  className="cursor-pointer"
+                >
+                  {showTotalSavings ? <EyeOff size={26} /> : <Eye size={26} />}
+                </button>
+              </div>
+            </div>
+            <div className="flex justify-end mt-4">
+              <Link to="/savings" className="underline text-sm text-white">
+                View Savings
+              </Link>
+            </div>
+          </div>
+
+          {/* EARNINGS */}
+          <div className="bg-white p-6 rounded-2xl shadow flex flex-col justify-between">
+            <div>
+              <h3 className="text-lg">Earnings</h3>
+              <div className="flex items-center gap-2 mt-2">
+                <p className="text-3xl font-bold">
+                  {showEarnings ? "₦18,000" : "******"}
+                </p>
+                <button
+                  onClick={() => setShowEarnings(!showEarnings)}
+                  className="cursor-pointer"
+                >
+                  {showEarnings ? <EyeOff size={26} /> : <Eye size={26} />}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* JOB SAVINGS */}
+          <div className="bg-white p-6 rounded-2xl shadow">
+            <h3 className="text-lg">Jobs Savings</h3>
+            <p className="text-3xl font-bold mt-2">12</p>
+          </div>
+
+          {/* GOAL SAVING */}
+          <div className="bg-white p-6 rounded-2xl shadow">
+            <h3 className="text-lg">Goal Saving</h3>
+            <p className="text-3xl font-bold mt-2">12</p>
+          </div>
+        </div>
+
+        {/* Quick Actions */}
+        <h3 className="font-bold text-lg mb-4">Quick Action</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+          <button
+            onClick={() => navigate("/quick-save")}
+            className="bg-gray-200 p-6 rounded-xl font-semibold cursor-pointer"
+          >
+            + Quick Save
+          </button>
+          <button
+            onClick={() => navigate("/group-save")}
+            className="bg-yellow-100 p-6 rounded-xl font-semibold cursor-pointer"
+          >
+            Group Save
+          </button>
+          <button
+            onClick={() => navigate("/create-target")}
+            className="bg-pink-100 p-6 rounded-xl font-semibold cursor-pointer"
+          >
+            Create Target
+          </button>
+          <button
+            onClick={() => navigate("/auto-save")}
+            className="bg-blue-100 p-6 rounded-xl font-semibold cursor-pointer"
+          >
+            Enable Auto Save
+          </button>
+        </div>
+
+        {/* Recent Activities */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div>
+            <h3 className="font-bold text-lg mb-4">Recent Activities</h3>
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-white rounded-xl p-4 shadow flex justify-between">
+                  <div>
+                    <p className="font-semibold">Savings Credited</p>
+                    <p className="text-gray-500 text-sm">2 hours ago</p>
+                  </div>
+                  <p className="text-lg font-bold">₦3,500</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-xl shadow">
+              <h3 className="font-bold text-lg mb-4">Savings Goal</h3>
+              <p className="mb-2">New Sewing Machine</p>
+              <div className="h-2 bg-gray-200 rounded-full">
+                <div className="h-2 bg-blue-500 rounded-full w-1/3"></div>
+              </div>
+              <p className="text-sm text-gray-600 mt-2">₦45,000 / ₦120,000</p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow">
+              <h3 className="font-bold text-lg mb-4">Learning Hub</h3>
+              <p className="text-gray-600">Financial tips</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
