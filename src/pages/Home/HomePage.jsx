@@ -5,7 +5,7 @@ import Image1 from "../../assets/images/frame-2.png";
 import Image2 from "../../assets/images/frame-3.png";
 import { Link } from "react-router-dom";
 import Dropdown from "../../components/Dropdown";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import TestimonialSlider from "../../components/Testimonial";
 
 function HomePage() {
