@@ -7,13 +7,22 @@ export default function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Separate toggles for each container
   const [showTotalSavings, setShowTotalSavings] = useState(false);
   const [showEarnings, setShowEarnings] = useState(false);
 
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  // USER STATES
+  const [userName, setUserName] = useState("");
+  const [greeting, setGreeting] = useState("");
 
-  const navigate = useNavigate(); // navigation hook
+  // DASHBOARD STATS
+  const [totalSavings, setTotalSavings] = useState(0);
+  const [earnings, setEarnings] = useState(0);
+  const [jobSavings, setJobSavings] = useState(0);
+  const [goalSavings, setGoalSavings] = useState(0);
+
+  const navigate = useNavigate();
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -21,29 +30,75 @@ export default function Dashboard() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // ✔️ FIXED GREETING LOGIC
+  useEffect(() => {
+    const hour = new Date().getHours();
+
+    if (hour >= 0 && hour < 12) {
+      setGreeting("Good morning");
+    } else if (hour >= 12 && hour < 16) {
+      setGreeting("Good afternoon");
+    } else {
+      setGreeting("Good evening");
+    }
+  }, []);
+
+  // ✔️ FETCH DASHBOARD DATA + USER NAME
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) return;
+
+    fetch("https://suresave.pythonanywhere.com/api/v1/dashboardView/", {
+      method: "GET",
+      headers: { Authorization: `Token ${token}` },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch dashboard");
+        return res.json();
+      })
+      .then((data) => {
+        // ✔️ SET USER NAME
+        if (data?.user?.email) {
+          setUserName(data.user.email);
+        }
+
+        // ✔️ SET DASHBOARD NUMBERS
+        if (data?.dashboard) {
+          setTotalSavings(data.dashboard.total_savings);
+          setEarnings(data.dashboard.earnings);
+          setJobSavings(data.dashboard.job_savings);
+          setGoalSavings(data.dashboard.goal_savings);
+        }
+      })
+      .catch((err) => console.error("Dashboard fetch error:", err));
+  }, []);
+
   const sidebarWidth = isSidebarOpen ? 256 : 64;
 
   return (
     <div className="flex h-screen w-screen bg-gray-100">
-      {/* Sidebar */}
+      {/* SIDEBAR */}
       <div className="shrink-0 transition-all duration-300" style={{ width: sidebarWidth }}>
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       </div>
 
       {/* MAIN CONTENT */}
       <main className="flex-1 transition-all duration-300 p-10">
-        {/* Top-right notifications and profile */}
+        {/* TOP RIGHT */}
         <div className="flex justify-end items-center gap-4 mb-6">
           <Bell size={26} className="text-gray-700 cursor-pointer" />
           <div className="w-10 h-10 rounded-full bg-indigo-700 text-white flex items-center justify-center font-bold cursor-pointer">
-            A
+            {userName?.charAt(0)?.toUpperCase()}
           </div>
         </div>
 
-        <h2 className="text-3xl font-bold mb-2">Good evening, Amaka 👋</h2>
+        {/* GREETING */}
+        <h2 className="text-3xl font-bold mb-2">
+          {greeting}, {userName} 👋
+        </h2>
         <p className="text-gray-600 mb-8">Here’s your savings progress today.</p>
 
-        {/* Stats */}
+        {/* --- STATS SECTION --- */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
           {/* TOTAL SAVINGS */}
           <div className="bg-blue-800 text-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
@@ -51,12 +106,9 @@ export default function Dashboard() {
               <h3 className="text-lg">Total Savings</h3>
               <div className="flex items-center gap-2 mt-2">
                 <p className="text-3xl font-bold">
-                  {showTotalSavings ? "₦208,000" : "******"}
+                  {showTotalSavings ? `₦${totalSavings.toLocaleString()}` : "******"}
                 </p>
-                <button
-                  onClick={() => setShowTotalSavings(!showTotalSavings)}
-                  className="cursor-pointer"
-                >
+                <button onClick={() => setShowTotalSavings(!showTotalSavings)} className="cursor-pointer">
                   {showTotalSavings ? <EyeOff size={26} /> : <Eye size={26} />}
                 </button>
               </div>
@@ -74,12 +126,9 @@ export default function Dashboard() {
               <h3 className="text-lg">Earnings</h3>
               <div className="flex items-center gap-2 mt-2">
                 <p className="text-3xl font-bold">
-                  {showEarnings ? "₦18,000" : "******"}
+                  {showEarnings ? `₦${earnings.toLocaleString()}` : "******"}
                 </p>
-                <button
-                  onClick={() => setShowEarnings(!showEarnings)}
-                  className="cursor-pointer"
-                >
+                <button onClick={() => setShowEarnings(!showEarnings)} className="cursor-pointer">
                   {showEarnings ? <EyeOff size={26} /> : <Eye size={26} />}
                 </button>
               </div>
@@ -89,46 +138,34 @@ export default function Dashboard() {
           {/* JOB SAVINGS */}
           <div className="bg-white p-6 rounded-2xl shadow">
             <h3 className="text-lg">Jobs Savings</h3>
-            <p className="text-3xl font-bold mt-2">12</p>
+            <p className="text-3xl font-bold mt-2">{jobSavings}</p>
           </div>
 
           {/* GOAL SAVING */}
           <div className="bg-white p-6 rounded-2xl shadow">
             <h3 className="text-lg">Goal Saving</h3>
-            <p className="text-3xl font-bold mt-2">12</p>
+            <p className="text-3xl font-bold mt-2">{goalSavings}</p>
           </div>
         </div>
 
-        {/* Quick Actions */}
+        {/* --- QUICK ACTIONS --- */}
         <h3 className="font-bold text-lg mb-4">Quick Action</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-          <button
-            onClick={() => navigate("/quick-save")}
-            className="bg-gray-200 p-6 rounded-xl font-semibold cursor-pointer"
-          >
+          <button onClick={() => navigate("/quick-save")} className="bg-gray-200 p-6 rounded-xl font-semibold cursor-pointer">
             + Quick Save
           </button>
-          <button
-            onClick={() => navigate("/group-save")}
-            className="bg-yellow-100 p-6 rounded-xl font-semibold cursor-pointer"
-          >
+          <button onClick={() => navigate("/group-save")} className="bg-yellow-100 p-6 rounded-xl font-semibold cursor-pointer">
             Group Save
           </button>
-          <button
-            onClick={() => navigate("/create-target")}
-            className="bg-pink-100 p-6 rounded-xl font-semibold cursor-pointer"
-          >
+          <button onClick={() => navigate("/create-target")} className="bg-pink-100 p-6 rounded-xl font-semibold cursor-pointer">
             Create Target
           </button>
-          <button
-            onClick={() => navigate("/auto-save")}
-            className="bg-blue-100 p-6 rounded-xl font-semibold cursor-pointer"
-          >
+          <button onClick={() => navigate("/auto-save")} className="bg-blue-100 p-6 rounded-xl font-semibold cursor-pointer">
             Enable Auto Save
           </button>
         </div>
 
-        {/* Recent Activities */}
+        {/* --- RECENT ACTIVITIES --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <div>
             <h3 className="font-bold text-lg mb-4">Recent Activities</h3>

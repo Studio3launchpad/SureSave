@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Bell, Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 // STAT CARD COMPONENT
-function StatCard({ title, value, bgColor = "bg-white", textColor = "text-gray-900", maskColor = "text-gray-400" }) {
+function StatCard({ title, value, bgColor = "bg-white", textColor = "text-gray-900", maskColor = "text-gray-400", path }) {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   return (
-    <div className={`p-5 rounded-2xl shadow-md ${bgColor} border flex items-center justify-between`}>
+    <div
+      className={`p-5 rounded-2xl shadow-md ${bgColor} border flex items-center justify-between cursor-pointer`}
+      onClick={() => path && navigate(path)}
+    >
       <div>
         <p className={`text-xs ${textColor === "text-white" ? "text-gray-200" : "text-gray-500"}`}>{title}</p>
         <h2 className={`text-2xl md:text-3xl font-bold mt-2 ${textColor}`}>
@@ -15,7 +20,10 @@ function StatCard({ title, value, bgColor = "bg-white", textColor = "text-gray-9
         </h2>
       </div>
       <button
-        onClick={() => setShow(!show)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setShow(!show);
+        }}
         className={`p-2 rounded-full ${bgColor === "bg-blue-800" ? "bg-blue-700 hover:bg-blue-600" : "bg-gray-100 hover:bg-gray-200"} transition`}
       >
         {show ? <EyeOff size={20} className={textColor} /> : <Eye size={20} className={textColor} />}
@@ -25,8 +33,9 @@ function StatCard({ title, value, bgColor = "bg-white", textColor = "text-gray-9
 }
 
 // PLAN CARD COMPONENT
-function PlanCard({ title, desc, amount, variant = "blue" }) {
+function PlanCard({ title, desc, amount, variant = "blue", path }) {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   const colorMap = {
     blue: "from-blue-200 to-blue-50",
@@ -38,6 +47,7 @@ function PlanCard({ title, desc, amount, variant = "blue" }) {
   return (
     <div
       className={`relative rounded-2xl p-5 bg-linear-to-br ${gradient} border cursor-pointer flex flex-col`}
+      onClick={() => path && navigate(path)}
     >
       {show && (
         <span className="absolute top-3 right-4 bg-white text-gray-800 text-xs px-3 py-1 rounded-full shadow">
@@ -52,7 +62,8 @@ function PlanCard({ title, desc, amount, variant = "blue" }) {
         <button
           onClick={(e) => {
             e.stopPropagation();
-            setShow(!show);
+            if (path) navigate(path);
+            else setShow(!show);
           }}
           className="text-sm font-medium text-indigo-700"
         >
@@ -69,6 +80,19 @@ function PlanCard({ title, desc, amount, variant = "blue" }) {
         </button>
       </div>
     </div>
+  );
+}
+
+// LEARNING HUB ITEM
+function LearningItem({ title, path }) {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => path && navigate(path)}
+      className="w-full text-left border rounded-xl p-3 hover:bg-gray-100 transition"
+    >
+      {title}
+    </button>
   );
 }
 
@@ -90,28 +114,36 @@ export default function SavingsDashboard() {
           desc: "Tap once to save a percentage of your earnings instantly.",
           amount: "₦100,500",
           variant: "blue",
+          path: "/surewallet",
         },
         {
           title: "Target Saving",
           desc: "Create a savings target and track progress.",
           amount: "₦100,500",
           variant: "yellow",
+          path: "/target-saving",
         },
         {
           title: "Group Saving",
           desc: "Save together, grow together.",
           amount: "₦100,500",
           variant: "purple",
+          path: "/group-saving",
         },
       ],
       activities: [
-        { title: "Savings Credited", time: "2 hours ago", amount: "₦3,500" },
-        { title: "Withdrawal", time: "1 day ago", amount: "-₦5,000" },
+        { title: "Savings Credited", time: "2 hours ago", amount: "₦3,500", path: "/activity/credit" },
+        { title: "Withdrawal", time: "1 day ago", amount: "-₦5,000", path: "/activity/withdrawal" },
       ],
-      learning: ["Financial tips", "Saving goals"],
+      learning: [
+        { title: "Financial tips", path: "/learning/financial-tips" },
+        { title: "Saving goals", path: "/learning/saving-goals" },
+      ],
     });
     setLoading(false);
   }, []);
+
+  const navigate = useNavigate();
 
   if (loading)
     return (
@@ -125,10 +157,9 @@ export default function SavingsDashboard() {
       <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
 
       <div
-        className={`flex-1 p-6 transition-all duration-300 ${
-          isOpen ? "ml-64" : "ml-16"
-        }`}
+        className={`flex-1 p-6 transition-all duration-300 ${isOpen ? "ml-64" : "ml-16"}`}
       >
+        {/* Top */}
         <div className="flex justify-end items-center gap-4 mb-6">
           <Bell size={26} className="text-gray-700 cursor-pointer" />
           <div className="w-10 h-10 rounded-full bg-indigo-700 text-white flex items-center justify-center font-bold">
@@ -136,6 +167,7 @@ export default function SavingsDashboard() {
           </div>
         </div>
 
+        {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
           <StatCard
             title="Total Savings"
@@ -143,13 +175,16 @@ export default function SavingsDashboard() {
             bgColor="bg-blue-800"
             textColor="text-white"
             maskColor="text-blue-300"
+            path="/savings" // navigate on card click
           />
           <StatCard
             title="Earnings"
             value={data.earnings}
+            path="/earnings" // example path
           />
         </div>
 
+        {/* Plans */}
         <h2 className="text-xl font-semibold mb-4">My Saving Plan</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
           {data.plans.map((p, idx) => (
@@ -157,13 +192,15 @@ export default function SavingsDashboard() {
           ))}
         </div>
 
+        {/* Activities & Learning Hub */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="bg-white rounded-2xl shadow p-5">
             <h3 className="text-lg font-semibold mb-4">Recent Activities</h3>
             {data.activities.map((a, i) => (
               <div
                 key={i}
-                className="flex justify-between items-center py-3 border-b last:border-b-0"
+                className="flex justify-between items-center py-3 border-b last:border-b-0 cursor-pointer"
+                onClick={() => a.path && navigate(a.path)}
               >
                 <div>
                   <p className="font-medium text-gray-800">{a.title}</p>
@@ -178,12 +215,7 @@ export default function SavingsDashboard() {
             <h3 className="text-lg font-semibold mb-4">Learning Hub</h3>
             <div className="space-y-3">
               {data.learning.map((l, i) => (
-                <button
-                  key={i}
-                  className="w-full text-left border rounded-xl p-3 hover:bg-gray-100"
-                >
-                  {l}
-                </button>
+                <LearningItem key={i} {...l} />
               ))}
             </div>
           </div>
